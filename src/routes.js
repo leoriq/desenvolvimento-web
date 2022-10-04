@@ -12,13 +12,14 @@ import AdController from "./app/controllers/AdController";
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post("/users", UserController.store);
 routes.post("/sessions", SessionController.store);
 routes.get("/ads", AdController.index);
 
 routes.use(authMiddleware);
 
+routes.post("/users", UserController.store);
 routes.put("/users", UserController.update);
+routes.delete("/users/:id", UserController.delete);
 routes.post("/ads", AdController.store);
 routes.post("/files", upload.single("file"), FileController.store);
 
