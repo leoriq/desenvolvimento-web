@@ -11,10 +11,16 @@ class AdController {
           model: User,
           as: "user",
           attributes: ["name"],
-        },
-      ],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: [ 'url']
+            }
+          ]
+        }
+      ]
     });
-
     return res.json(ads);
   }
 
