@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import Ad from "../models/Ad";
 import User from "../models/User";
+import File from "../models/File";
 
 class AdController {
   async index(req, res) {
@@ -11,15 +12,13 @@ class AdController {
           model: User,
           as: "user",
           attributes: ["name"],
-          include: [
-            {
-              model: File,
-              as: 'image',
-              attributes: [ 'url']
-            }
-          ]
-        }
-      ]
+        },
+        {
+          model: File,
+          as: "image",
+          attributes: ["url", "path"],
+        },
+      ],
     });
     return res.json(ads);
   }
