@@ -2,9 +2,10 @@ import * as Yup from "yup";
 import Ad from "../models/Ad";
 import User from "../models/User";
 import File from "../models/File";
+import Comment from "../models/Comment";
 
 class AdController {
-  async index(req, res) {
+  async index(_req, res) {
     const ads = await Ad.findAll({
       order: ["created_at"],
       include: [
@@ -21,8 +22,15 @@ class AdController {
         {
           model: Comment,
           as: "comments",
-          attributes: ["id", "content", "user_id"],
-        }
+          include: [
+            {
+              model: User,
+              as: "user",
+              attributes: ["name"],
+            },
+          ],
+          attributes: ["id", "content", "updated_at"],
+        },
       ],
     });
     return res.json(ads);
