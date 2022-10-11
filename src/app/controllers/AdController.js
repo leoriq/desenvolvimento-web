@@ -22,6 +22,8 @@ class AdController {
         {
           model: Comment,
           as: "comments",
+          order: ["created_at"],
+          separate: true,
           include: [
             {
               model: User,

@@ -6,6 +6,7 @@ class CommentController {
   async store(req, res) {
     const schema = Yup.object().shape({
       content: Yup.string().required(),
+      ad_id: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -17,8 +18,8 @@ class CommentController {
       return res.status(400).json({ error: "User doesn't exist" });
     }
 
-    const { content } = req.body;
-    const comment = await Comment.create({ content, user_id: req.userId });
+    const { content, ad_id } = req.body;
+    const comment = await Comment.create({ content, ad_id, user_id: req.userId });
     return res.json(comment);
   }
 }
