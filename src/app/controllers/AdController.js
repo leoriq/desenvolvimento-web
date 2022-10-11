@@ -18,6 +18,11 @@ class AdController {
           as: "image",
           attributes: ["url", "path"],
         },
+        {
+          model: Comment,
+          as: "comments",
+          attributes: ["id", "content", "user_id"],
+        }
       ],
     });
     return res.json(ads);
